@@ -3,7 +3,13 @@ import re
 
 # Current directory complet path
 current_path = os.path.dirname(os.path.realpath(__file__))
+# Get all files in current directory
 files = os.listdir()
+
+# Create ignore file
+def create_ignore():
+    with open(current_path + "/" + "ignore.txt", "w") as f:
+        f.write("")
 
 def get_extension(files):
     ext = list()
@@ -26,6 +32,7 @@ def move_files(files):
             os.rename(current_path + "/" + i, current_path + "/" + ext_ + "/" + i)
 
 if __name__ == "__main__":
+    create_ignore()
     ext = get_extension(files)
     create_folder(current_path, ext)
     move_files(files)
