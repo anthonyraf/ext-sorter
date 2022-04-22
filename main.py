@@ -17,10 +17,11 @@ class Sorter:
                 f.write("")
 
     def get_ignored(self):
+        ignore = list()
         with open(self.current_path + "/ignore.txt", "r") as f:
             for i in f.readlines():
-                self.ignore.append(i.strip())
-        return self.ignore
+                ignore.append(i.strip())
+        return ignore
 
     def get_extension(self, files):
         ext = list()
@@ -45,5 +46,4 @@ class Sorter:
                     os.rename(self.current_path + "/" + i,
                               self.current_path + "/" + ext_ + "/" + i)
 
-if __name__ == '__file__':
-    Sorter()
+Sorter()
