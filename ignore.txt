@@ -1,5 +1,2 @@
 .gitignore
-.py
-test.py
-.bat
 ignore.txt

@@ -46,4 +46,5 @@ class Sorter:
                     os.rename(self.current_path + "/" + i,
                               self.current_path + "/" + ext_ + "/" + i)
 
-Sorter()
+if __name__ == '__main__':
+    Sorter()
