@@ -37,10 +37,12 @@ def create_folder(path, ext):
             
 # TODO: add ignore exceptions
 def move_files(files):
-    for i in files:  
-        ext_ = i.split('.')[-1]
-        if os.path.isfile(current_path + "/" + i):
-            os.rename(current_path + "/" + i, current_path + "/" + ext_ + "/" + i)
+    ignore = get_ignored()
+    for i in files:
+        if i not in ignore and "."+i.split('.')[-1] not in ignore:
+            ext_ = i.split('.')[-1]
+            if os.path.isfile(current_path + "/" + i):
+                os.rename(current_path + "/" + i, current_path + "/" + ext_ + "/" + i)
 
 def run():
     create_ignore()
