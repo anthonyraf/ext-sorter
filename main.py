@@ -14,7 +14,7 @@ def create_ignore():
             f.write("")
 
 
-def get_ignored(files):
+def get_ignored():
     ignored = list()
     with open(current_path + "/ignore.txt", "r") as f:
         for i in f.readlines():
