@@ -31,9 +31,11 @@ def get_extension(files):
     return ext
 
 def create_folder(path, ext):
+    ignore = get_ignored()
     for i in ext:
-        if not os.path.exists(path + "/" + i):
-            os.makedirs(i)
+        if i not in ignore and "."+i.split('.')[-1] not in ignore:
+            if not os.path.exists(path + "/" + i):
+                os.makedirs(i)
             
 # TODO: add ignore exceptions
 def move_files(files):
