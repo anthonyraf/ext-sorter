@@ -35,7 +35,7 @@ class Sorter:
     def create_folder(self, path, ext):
         dirs = list()
         for i in ext:
-            if i not in self.ignore and "."+i.split('.')[-1] not in self.ignore and :
+            if i not in self.ignore and "."+i.split('.')[-1] not in self.ignore:
                 if not os.path.exists(path + "/" + i):
                     os.makedirs(i)
                     dirs.append(path + '/' + i)
