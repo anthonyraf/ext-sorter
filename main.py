@@ -1,55 +1,49 @@
 import os
 
-# Current directory complet path
-current_path = os.path.dirname(os.path.realpath(__file__))
-# Get all files in current directory
-files = os.listdir()
 
+class Sorter:
+    def __init__(self):
+        self.current_path = os.path.dirname(os.path.realpath(__file__))
+        self.files = os.listdir()
+        self.create_ignore()
+        self.ignore = self.get_ignored()
+        self.ext = self.get_extension(self.files)
+        self.create_folder(self.current_path, self.ext)
+        self.move_files(self.files)
 
-# Create ignore file
-def create_ignore():
-    if not os.path.isfile(current_path + "/ignore.txt"):
-        with open(current_path + "/ignore.txt", "w") as f:
-            f.write("")
+    def create_ignore(self):
+        if not os.path.isfile(self.current_path + "/ignore.txt"):
+            with open(self.current_path + "/ignore.txt", "w") as f:
+                f.write("")
 
+    def get_ignored(self):
+        with open(self.current_path + "/ignore.txt", "r") as f:
+            for i in f.readlines():
+                self.ignore.append(i.strip())
+        return self.ignore
 
-def get_ignored():
-    ignored = list()
-    with open(current_path + "/ignore.txt", "r") as f:
-        for i in f.readlines():
-            ignored.append(i.strip())
-    return ignored
-
-def get_extension(files):
-    ext = list()  
-    for i in files:
-        ext_ = i.split('.')[-1]
-        if os.path.isfile(current_path + "/" + i):
-            if not ext_ in ext:
-                ext.append(ext_)
-    return ext
-
-def create_folder(path, ext):
-    ignore = get_ignored()
-    for i in ext:
-        if i not in ignore and "."+i.split('.')[-1] not in ignore:
-            if not os.path.exists(path + "/" + i):
-                os.makedirs(i)
-            
-# TODO: add ignore exceptions
-def move_files(files):
-    ignore = get_ignored()
-    for i in files:
-        if i not in ignore and "."+i.split('.')[-1] not in ignore:
+    def get_extension(self, files):
+        ext = list()
+        for i in files:
             ext_ = i.split('.')[-1]
-            if os.path.isfile(current_path + "/" + i):
-                os.rename(current_path + "/" + i, current_path + "/" + ext_ + "/" + i)
+            if os.path.isfile(self.current_path + "/" + i):
+                if not ext_ in ext:
+                    ext.append(ext_)
+        return ext
 
-def run():
-    create_ignore()
-    ext = get_extension(files)
-    create_folder(current_path, ext)
-    move_files(files)
+    def create_folder(self, path, ext):
+        for i in ext:
+            if i not in self.ignore and "."+i.split('.')[-1] not in self.ignore:
+                if not os.path.exists(path + "/" + i):
+                    os.makedirs(i)
 
-if __name__ == "__main__":
-    run()
+    def move_files(self, files):
+        for i in files:
+            if i not in self.ignore and "."+i.split('.')[-1] not in self.ignore:
+                ext_ = i.split('.')[-1]
+                if os.path.isfile(self.current_path + "/" + i):
+                    os.rename(self.current_path + "/" + i,
+                              self.current_path + "/" + ext_ + "/" + i)
+
+if __name__ == '__file__':
+    Sorter()
