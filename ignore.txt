@@ -1,3 +1,4 @@
+.gitignore
 .py
 test.py
 .bat
