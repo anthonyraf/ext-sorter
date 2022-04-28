@@ -28,7 +28,7 @@ class Sorter:
         for i in files:
             ext_ = i.split('.')[-1]
             if os.path.isfile(self.current_path + "/" + i):
-                if not ext_ in ext:
+                if ext_ not in ext:
                     ext.append(ext_)
         return ext
 
@@ -45,6 +45,7 @@ class Sorter:
                 if os.path.isfile(self.current_path + "/" + i):
                     os.rename(self.current_path + "/" + i,
                               self.current_path + "/" + ext_ + "/" + i)
+
 
 if __name__ == '__main__':
     Sorter()
